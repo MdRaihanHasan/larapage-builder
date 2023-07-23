@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WebsiteController;
+use App\Http\Controllers\PageBuilderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::any('/admin/pages/{id}/build', [PageBuilderController::class, 'build'])->name('pagebuilder.build');
+Route::any('/admin/pages/build', [PageBuilderController::class, 'build']);
+
+Route::any('{uri}', [
+    'uses' => [WebsiteController::class, 'uri'],
+    'as' => 'page',
+])->where('uri', '.*');

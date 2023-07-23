@@ -52,4 +52,13 @@ $response = $kernel->handle(
     $request = Request::capture()
 )->send();
 
+$config = require __DIR__ . '/config.php';
+
+$builder = new PHPageBuilder\PHPageBuilder($config);
+$builder->handleRequest();
+
+
+
+
 $kernel->terminate($request, $response);
+
